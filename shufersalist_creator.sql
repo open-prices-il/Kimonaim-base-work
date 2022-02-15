@@ -1,3 +1,5 @@
+-- This was used in sqlite DB browser.
+
 CREATE TABLE "shufersalPrices" (
 	"filename"	TEXT,
 	"store_id"	TEXT,
