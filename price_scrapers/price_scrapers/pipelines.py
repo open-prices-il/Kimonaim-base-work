@@ -6,12 +6,19 @@
 # See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 
 import scrapy
+import os
+from urllib.parse import urlparse
 from scrapy.pipelines.files import FilesPipeline
 
-
+def get_filename_from_url(url:str) ->str:
+    a = urlparse(url)
+    return os.path.basename(a.path)
 
 class FileDownloadPipeline(FilesPipeline):
-    @classmethod
-    def from_settings(cls, settings):
-        return cls(store_uri="/tmp/out1.json",settings=settings)
+    def file_path(self, request, response=None, info=None, *, item=None):
+        url = request.url
+        filename =get_filename_from_url(url)
+        store = item['store']
+        res = f"full/{store}_{filename}"
+        return res
 

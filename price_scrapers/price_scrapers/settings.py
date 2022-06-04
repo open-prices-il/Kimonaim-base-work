@@ -65,8 +65,10 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'price_scrapers.pipelines.FileDownloadPipeline': 300,
+    'price_scrapers.pipelines.FileDownloadPipeline': 1,
 }
+FILES_STORE = '/tmp/dir'
+LOG_LEVEL = 'INFO'  # to only display errors
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
