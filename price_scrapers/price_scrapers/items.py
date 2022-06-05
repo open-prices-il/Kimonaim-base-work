@@ -6,13 +6,13 @@
 # https://docs.scrapy.org/en/latest/topics/items.html
 
 from dataclasses import dataclass
-from typing import List
+from typing import List, Optional
 
 
 @dataclass
 class DownloadLinkItem:
-    file_urls :List[str]
-    store  :str
-    date = str
-
-
+    file_urls: List[str]
+    chain: str
+    branch_string: Optional[str]
+    category: str
+    update_time_str: str

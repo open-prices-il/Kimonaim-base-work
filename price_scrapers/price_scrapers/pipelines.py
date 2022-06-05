@@ -28,8 +28,9 @@ class FileDownloadPipeline(FilesPipeline):
             url = request.url
             filename =get_filename_from_url(url)
 
-            store = item.store
-            res = f"full/{store}_{filename}"
+            store = item.chain
+            category = item.category
+            res = f"full/{store}_{category}_{filename}"
 
             return res
 
