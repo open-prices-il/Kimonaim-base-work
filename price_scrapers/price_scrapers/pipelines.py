@@ -8,17 +8,28 @@
 import scrapy
 import os
 from urllib.parse import urlparse
-from scrapy.pipelines.files import FilesPipeline
+
+from scrapy.exceptions import IgnoreRequest
+from scrapy.pipelines.files import FileException, FilesPipeline, logger
+from scrapy.utils.request import referer_str
+
+from price_scrapers.items import DownloadLinkItem
+
 
 def get_filename_from_url(url:str) ->str:
     a = urlparse(url)
     return os.path.basename(a.path)
 
 class FileDownloadPipeline(FilesPipeline):
+
     def file_path(self, request, response=None, info=None, *, item=None):
-        url = request.url
-        filename =get_filename_from_url(url)
-        store = item['store']
-        res = f"full/{store}_{filename}"
-        return res
+        if isinstance(item,DownloadLinkItem):
+
+            url = request.url
+            filename =get_filename_from_url(url)
+
+            store = item.store
+            res = f"full/{store}_{filename}"
+
+            return res
 

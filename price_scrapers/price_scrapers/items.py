@@ -5,15 +5,14 @@
 # See documentation in:
 # https://docs.scrapy.org/en/latest/topics/items.html
 
-import scrapy
-
-class DownloadLinkItem(scrapy.Item):
-    file_urls = scrapy.Field()
-    store = scrapy.Field()
-    date = scrapy.Field()
+from dataclasses import dataclass
+from typing import List
 
 
-class PriceScrapersItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+@dataclass
+class DownloadLinkItem:
+    file_urls :List[str]
+    store  :str
+    date = str
+
+

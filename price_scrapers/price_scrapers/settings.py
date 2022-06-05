@@ -68,7 +68,8 @@ ITEM_PIPELINES = {
     'price_scrapers.pipelines.FileDownloadPipeline': 1,
 }
 FILES_STORE = '/tmp/dir'
-LOG_LEVEL = 'INFO'  # to only display errors
+LOG_LEVEL = 'DEBUG'  # to only display errors
+LOG_FORMATTER = 'price_scrapers.logging.PoliteLogFormatter'
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
