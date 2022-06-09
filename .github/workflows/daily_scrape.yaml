@@ -3,6 +3,8 @@ on:
   schedule:
     - cron:  "0 0 * * *" #runs at 00:00 UTC everyday
   workflow_dispatch:
+env:
+  FILE_DIR: /tmp/out
 jobs:
   daily_scrape:
     runs-on: ubuntu-latest
@@ -19,6 +21,21 @@ jobs:
       - name: "Run scraper for shufersal"
         working-directory: ./price_scrapers
         run: scrapy crawl shufersal
+
+      - name: Set current date as env variable
+        run: echo "NOW::$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+
+      - name: "Merge outputs"
+        working-directory: {{ env.FILE_DIR}}/full
+        run: 'cat *.gz > "$NOW"_shufersal.gz'
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: {{ env.NOW }}_shufersal.gz
+          path: {{ env.FILE_DIR}}/full/{{ env.NOW }}_shufersal.gz
+
+
+
 
 
 
