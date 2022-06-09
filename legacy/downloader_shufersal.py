@@ -14,7 +14,7 @@ select = Select(driver.find_element_by_css_selector('#ddlCategory'))
 select.select_by_visible_text('PricesFull')
 time.sleep(3)
 
-# Now selenium will go through the first 4 pages and get all the links. 
+# Now selenium will go through the first 4 pages and get all the links.
 
 css_selectorList = [
     '#gridContainer > table > tbody > tr:nth-child(1) > td:nth-child(1) > a',

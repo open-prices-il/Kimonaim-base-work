@@ -72,4 +72,3 @@ for xml_file in xml_files:
             conn.close()
 
 print("ALl finished!")
-

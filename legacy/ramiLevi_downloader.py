@@ -66,4 +66,3 @@ for selector in xpath_selectors:
         print (f"{filename} already exists in {dir_to_save_files}")
 
 print ("END")
-

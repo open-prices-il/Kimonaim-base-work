@@ -36,10 +36,4 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: "${{ env.NOW }}_shufersal.gz"
-          path: "${{ env.FILE_DIR}}/full/{{ steps.current-time.outputs.time }}_shufersal.gz"
-
-
-
-
-
-
+          path: "${{ env.FILE_DIR}}/full/${{ steps.current-time.outputs.time }}_shufersal.gz"

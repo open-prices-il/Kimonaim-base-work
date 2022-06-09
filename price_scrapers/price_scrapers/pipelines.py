@@ -37,4 +37,3 @@ class FileDownloadPipeline(FilesPipeline):
             self.make_dir_if_not_exists(res)
 
             return res
-

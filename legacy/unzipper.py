@@ -9,7 +9,7 @@ path = [
     str(os.path.join(r'C:\..\Kimonaim\shufersal', str(today))),
     str(os.path.join(r'C:\..\Kimonaim\ramiLevi', str(today))),
     str(os.path.join(r'C:\..\Kimonaim\victory', str(today)))
-   
+
 ]
 
 import gzip, shutil
