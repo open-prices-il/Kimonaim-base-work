@@ -31,17 +31,17 @@ jobs:
         run: "ls ${{ env.FILE_DIR}}/full"
       - name: Merge outputs
         env:
-          TIME: "${{ steps.current-time.outputs.date }}"
+          TIME: "${{ steps.current-time.outputs.formattedTime }}"
         working-directory: "${{ env.FILE_DIR}}/full"
         run: 'cat *.gz > "$TIME"_shufersal.gz'
       - name: check outfile exists
         working-directory: "${{ env.FILE_DIR}}/full"
         env:
-          TIME: "${{ steps.current-time.outputs.date }}"
+          TIME: "${{ steps.current-time.outputs.formattedTime }}"
         run: 'ls "$TIME"_shufersal.gz'
       - uses: actions/upload-artifact@v3
         env:
-          TIME: "${{ steps.current-time.outputs.date }}"
+          TIME: "${{ steps.current-time.outputs.formattedTime }}"
         with:
           working-directory: "${{ env.FILE_DIR}}/full"
           name: '${{ env.TIME }}_shufersal.gz'
