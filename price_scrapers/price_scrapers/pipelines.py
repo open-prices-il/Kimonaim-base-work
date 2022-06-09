@@ -8,7 +8,7 @@
 import scrapy
 import os
 from urllib.parse import urlparse
-
+from pathlib import Path
 from scrapy.exceptions import IgnoreRequest
 from scrapy.pipelines.files import FileException, FilesPipeline, logger
 from scrapy.utils.request import referer_str
@@ -21,6 +21,9 @@ def get_filename_from_url(url:str) ->str:
     return os.path.basename(a.path)
 
 class FileDownloadPipeline(FilesPipeline):
+    def make_dir_if_not_exists(self,filename:str):
+        base_path = os.path.dirname(filename)
+        Path(base_path).mkdir(parents=True,exist_ok=True)
 
     def file_path(self, request, response=None, info=None, *, item=None):
         if isinstance(item,DownloadLinkItem):
@@ -31,6 +34,7 @@ class FileDownloadPipeline(FilesPipeline):
             store = item.chain
             category = item.category
             res = f"full/{store}_{category}_{filename}"
+            self.make_dir_if_not_exists(res)
 
             return res
 

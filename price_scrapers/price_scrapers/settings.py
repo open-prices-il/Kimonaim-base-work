@@ -8,7 +8,7 @@
 #     https://docs.scrapy.org/en/latest/topics/settings.html
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
-
+import os
 BOT_NAME = 'price_scrapers'
 
 SPIDER_MODULES = ['price_scrapers.spiders']
@@ -67,7 +67,7 @@ ROBOTSTXT_OBEY = True
 ITEM_PIPELINES = {
     'price_scrapers.pipelines.FileDownloadPipeline': 1,
 }
-FILES_STORE = '/tmp/dir'
+FILES_STORE = os.environ.get("FILE_DIR",'/tmp/dir')
 LOG_LEVEL = 'DEBUG'  # to only display errors
 LOG_FORMATTER = 'price_scrapers.logging.PoliteLogFormatter'
 
