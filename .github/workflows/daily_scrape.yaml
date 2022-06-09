@@ -36,9 +36,13 @@ jobs:
         run: 'cat *.gz > "$TIME"_shufersal.gz'
       - name: check outfile exists
         working-directory: "${{ env.FILE_DIR}}/full"
+        env:
+          TIME: "${{ steps.current-time.outputs.date }}"
         run: 'ls "$TIME"_shufersal.gz'
       - uses: actions/upload-artifact@v3
+        env:
+          TIME: "${{ steps.current-time.outputs.date }}"
         with:
           working-directory: "${{ env.FILE_DIR}}/full"
-          name: "${{ env.NOW }}_shufersal.gz"
-          path: "${{ env.FILE_DIR}}/full/${{ steps.current-time.outputs.time }}_shufersal.gz"
+          name: '${{ env.TIME }}_shufersal.gz'
+          path: "${{ env.FILE_DIR}}/full/${{ env.TIME }}_shufersal.gz"
