@@ -27,6 +27,10 @@ jobs:
         id: current-time
         with:
           format: YYYYMMDD
+      - name: check files
+        run: "ls ${{ env.FILE_DIR}}/full"
+      - name: check gzip files
+        run: "ls *.gz ${{ env.FILE_DIR}}/full"
       - name: Merge outputs
         env:
           TIME: "${{ steps.current-time.outputs.date }}"
@@ -35,5 +39,6 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
+          working-directory: "${{ env.FILE_DIR}}/full"
           name: "${{ env.NOW }}_shufersal.gz"
           path: "${{ env.FILE_DIR}}/full/${{ steps.current-time.outputs.time }}_shufersal.gz"

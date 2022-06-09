@@ -1,15 +1,14 @@
 from typing import Optional
 
 import scrapy
+from price_scrapers.items import DownloadLinkItem
 from scrapy import Selector
 from scrapy.http import Response
 
-from price_scrapers.items import DownloadLinkItem
 
-def strip_if_not_none(string:Optional[str]) -> Optional[str]:
+def strip_if_not_none(string: Optional[str]) -> Optional[str]:
     if string is not None:
         return string.strip()
-
 
 
 class ShufersalSpider(scrapy.Spider):
