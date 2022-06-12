@@ -1,0 +1,46 @@
+name: "Download All Bitan FullPrice"
+on:
+  workflow_dispatch:
+env:
+  FILE_DIR: /tmp/out
+jobs:
+  daily_scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v2 # checkout the repository content to github runner.
+      - name: setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8 #install the python needed
+          cache: "pip"
+      - name: "Install python deps"
+        run: pip install -r requirements.txt
+      - name: "Run scraper for bitan"
+        working-directory: ./price_scrapers
+        run: "scrapy crawl ybp"
+
+      - name: Get current time
+        uses: josStorer/get-current-time@v2
+        id: current-time
+        with:
+          format: YYYYMMDD
+      - name: check files
+        run: "ls ${{ env.FILE_DIR}}/full"
+      - name: Merge outputs
+        env:
+          TIME: "${{ steps.current-time.outputs.formattedTime }}"
+        working-directory: "${{ env.FILE_DIR}}/full"
+        run: 'cat *.gz > "$TIME"_bitan.gz'
+      - name: check outfile exists
+        working-directory: "${{ env.FILE_DIR}}/full"
+        env:
+          TIME: "${{ steps.current-time.outputs.formattedTime }}"
+        run: 'ls "$TIME"_bitan.gz'
+      - uses: actions/upload-artifact@v3
+        env:
+          TIME: "${{ steps.current-time.outputs.formattedTime }}"
+        with:
+          working-directory: "${{ env.FILE_DIR}}/full"
+          name: '${{ env.TIME }}_bitan.gz'
+          path: "${{ env.FILE_DIR}}/full/${{ env.TIME }}_bitan.gz"

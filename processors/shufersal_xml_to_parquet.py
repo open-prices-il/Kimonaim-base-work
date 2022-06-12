@@ -24,18 +24,18 @@ def extract_xml_row_to_dict(row):
     return res
 
 
-branch_id_regex = re.compile("-(\d{3})-")
+branch_id_regex = re.compile("-(\d{3,})-")
 
 
 def file_iterator(base_path):
 
     csv_writer = None
-    output_file = open("/tmp/prices.csv", "w")
+    output_file = open("/tmp/prices2.csv", "w")
 
     for filename in os.listdir(base_path):
 
-        if filename.endswith(".gz") and "pricefull" in filename:
-            branch_id = branch_id_regex.search(filename).group(0)
+        if filename.endswith(".gz") and "pricefull" in filename.lower():
+            branch_id = branch_id_regex.search(filename).group(1)
             filepath = os.path.join(base_path, filename)
             gzip_file = gzip.open(filepath, mode="rt")  # open in text mode:
             mytree = ET.parse(gzip_file)
@@ -56,4 +56,4 @@ def file_iterator(base_path):
 
 
 if __name__ == "__main__":
-    file_iterator("/tmp/dir/full")
+    file_iterator("/tmp/")
