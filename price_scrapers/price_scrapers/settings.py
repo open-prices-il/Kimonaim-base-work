@@ -23,7 +23,7 @@ NEWSPIDER_MODULE = "price_scrapers.spiders"
 ROBOTSTXT_OBEY = True
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-# CONCURRENT_REQUESTS = 32
+CONCURRENT_REQUESTS = 128
 
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
@@ -69,7 +69,7 @@ ITEM_PIPELINES = {
     "price_scrapers.pipelines.FileDownloadPipeline": 1,
 }
 FILES_STORE = os.environ.get("FILE_DIR", "/tmp/dir")
-LOG_LEVEL = "DEBUG"  # to only display errors
+LOG_LEVEL = "INFO"  # to only display errors
 LOG_FORMATTER = "price_scrapers.logging.PoliteLogFormatter"
 
 # Enable and configure the AutoThrottle extension (disabled by default)

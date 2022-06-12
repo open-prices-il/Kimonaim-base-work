@@ -46,3 +46,15 @@ class YaynotBitanParentSpider(scrapy.spiders.CrawlSpider):
                 update_time_str=strip_if_not_none(match_gd["date"]),
                 category=strip_if_not_none(match_gd["category"]),
             )
+
+
+class MegaScrape(YaynotBitanParentSpider):
+    name = "mega"
+    base_url = "http://publishprice.mega.co.il"
+    start_urls = [f"{base_url}/"]
+
+
+class MegaMarketScrape(YaynotBitanParentSpider):
+    name = "mega-market"
+    base_url = "http://publishprice.mega-market.co.il"
+    start_urls = [f"{base_url}/"]

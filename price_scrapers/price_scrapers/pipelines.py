@@ -5,6 +5,7 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 
+import logging
 import os
 from pathlib import Path
 from urllib.parse import urlparse
@@ -14,6 +15,8 @@ from price_scrapers.items import DownloadLinkItem
 from scrapy.exceptions import IgnoreRequest
 from scrapy.pipelines.files import FileException, FilesPipeline, logger
 from scrapy.utils.request import referer_str
+
+logger = logging.getLogger(__name__)
 
 
 def get_filename_from_url(url: str) -> str:
@@ -36,5 +39,5 @@ class FileDownloadPipeline(FilesPipeline):
             category = item.category
             res = f"full/{store}_{category}_{filename}"
             self.make_dir_if_not_exists(res)
-
+            logger.info(f"Downloaded {filename}")
             return res
