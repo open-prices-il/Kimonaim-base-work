@@ -25,7 +25,7 @@ class YaynotBitanParentSpider(scrapy.spiders.CrawlSpider):
     base_url = "http://publishprice.ybitan.co.il"
     start_urls = [f"{base_url}/"]
     rules = [
-        Rule(LinkExtractor(allow=["/20"], deny=["\.gz"]), callback="parse_page"),
+        Rule(LinkExtractor(allow=["/20\d+/$"], deny=["\.gz"]), callback="parse_page"),
     ]
 
     def parse_page(self, response):

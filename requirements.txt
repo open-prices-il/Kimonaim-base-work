@@ -1,3 +1,4 @@
 mypy
 scrapy
 pre-commit
+tqdm
